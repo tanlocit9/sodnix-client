@@ -1,5 +1,9 @@
 {
   "name": "@sodnix-client/web",
   "version": "0.0.1",
-  "private": true
+  "private": true,
+  "dependencies": {
+    "@tanstack/react-query": "^5.87.1",
+    "tailwind-merge": "^3.3.1"
+  }
 }

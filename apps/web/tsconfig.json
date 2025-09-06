@@ -6,5 +6,16 @@
       "path": "./tsconfig.app.json"
     }
   ],
-  "extends": "../../tsconfig.base.json"
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "../../dist/out-tsc",
+    "types": ["node"],
+
+    // Path mapping configuration for Nx
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@/components/*": ["src/components/*"]
+    }
+  }
 }

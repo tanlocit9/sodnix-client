@@ -1,49 +1,23 @@
-import NxWelcome from './nx-welcome';
-
-import { Route, Routes, Link } from 'react-router-dom';
+import { Route, Routes, Link, Navigate } from 'react-router-dom';
+import Layout from '../layout';
+import Page1 from '../pages/page-1/page1';
+import Page2 from '../pages/page-2/page2';
+import { ROUTES } from '../contants/route';
+import { QueryClientProvider } from '@tanstack/react-query';
+import { queryClient } from '../lib/query-client';
 
 export function App() {
   return (
-    <div>
-      <NxWelcome title="@sodnix-client/web" />
-
-      {/* START: routes */}
-      {/* These routes and navigation have been generated for you */}
-      {/* Feel free to move and update them to fit your needs */}
-      <br />
-      <hr />
-      <br />
-      <div role="navigation">
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/page-2">Page 2</Link>
-          </li>
-        </ul>
-      </div>
+    <QueryClientProvider client={queryClient}>
       <Routes>
-        <Route
-          path="/"
-          element={
-            <div>
-              This is the generated root route.{' '}
-              <Link to="/page-2">Click here for page 2.</Link>
-            </div>
-          }
-        />
-        <Route
-          path="/page-2"
-          element={
-            <div>
-              <Link to="/">Click here to go back to root page.</Link>
-            </div>
-          }
-        />
+        <Route element={<Layout />}>
+          <Route path={ROUTES.HOME.path} element={<div>Home</div>} />
+          <Route path={ROUTES.PAGE1.path} element={<Page1></Page1>} />
+          <Route path={ROUTES.PAGE2.path} element={<Page2></Page2>} />
+          <Route path="*" element={<Navigate to={ROUTES.HOME.path} replace />} />
+        </Route>
       </Routes>
-      {/* END: routes */}
-    </div>
+    </QueryClientProvider>
   );
 }
 

@@ -1,0 +1,16 @@
+# Go
+/src/bin/
+/src/pkg/
+/src/coverage.out
+*.exe
+*.test
+*.out
+
+# Common
+.DS_Store
+*.log
+.env
+.idea/
+.vscode/
+
+# Web

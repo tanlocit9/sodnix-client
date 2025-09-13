@@ -1,0 +1,3713 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "src API for the Norastro Expense Management App.",
+        "title": "Norastro API",
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {
+            "name": "Norastro Dev Team",
+            "url": "https://github.com/your-org/norastro",
+            "email": "support@norastro.app"
+        },
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        },
+        "version": "1.0"
+    },
+    "host": "localhost:8080",
+    "basePath": "/api",
+    "paths": {
+        "/accounts": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Get a list of all registered Accounts",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "accounts"
+                ],
+                "summary": "Get all Accounts",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "default": 1,
+                        "description": "Page number",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "default": 10,
+                        "description": "Page size",
+                        "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "default": "created_at",
+                        "description": "Sort field",
+                        "name": "sort_field",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "default": "desc",
+                        "description": "Sort order",
+                        "name": "sort_order",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Search term",
+                        "name": "search",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Preload relations",
+                        "name": "preload",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of Accounts",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-array_accounts_AccountResponseDTO"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-any"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Create a new Account with the provided details",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "accounts"
+                ],
+                "summary": "Create a new Account",
+                "parameters": [
+                    {
+                        "description": "Account creation details",
+                        "name": "account",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/accounts.AccountRequestDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Account created successfully",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-accounts_AccountResponseDTO"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-any"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-any"
+                        }
+                    }
+                }
+            }
+        },
+        "/accounts/{id}": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Get Account details by their unique ID",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "accounts"
+                ],
+                "summary": "Get an Account by ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Account ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Account found",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-accounts_AccountResponseDTO"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid Account ID",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-any"
+                        }
+                    },
+                    "404": {
+                        "description": "Account not found",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-any"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Update Account details by their unique ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "accounts"
+                ],
+                "summary": "Update an existing Account",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Account ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Account update details",
+                        "name": "account",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/accounts.AccountRequestDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Account updated successfully",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-accounts_AccountResponseDTO"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid Account ID or bad request",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-any"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-any"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Delete an Account by their unique ID",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "accounts"
+                ],
+                "summary": "Delete an Account",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Account ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Account deleted successfully",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-any"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid Account ID",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-any"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-any"
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/login": {
+            "post": {
+                "description": "Authenticates a user with email and password and returns a JWT token.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Authenticate user and get JWT token",
+                "parameters": [
+                    {
+                        "description": "Login credentials",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/auth.LoginRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Login successful",
+                        "schema": {
+                            "$ref": "#/definitions/response.GetDataSuccess-auth_LoginResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid credentials or bad request",
+                        "schema": {
+                            "$ref": "#/definitions/response.BadRequestError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/response.InternalServerError"
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/logout": {
+            "post": {
+                "description": "Clears the user session.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Logout user",
+                "responses": {
+                    "200": {
+                        "description": "Logged out",
+                        "schema": {
+                            "$ref": "#/definitions/response.GetDataSuccess-auth_MessageResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid credentials or bad request",
+                        "schema": {
+                            "$ref": "#/definitions/response.BadRequestError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/response.InternalServerError"
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/profile": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Retrieves the profile information for the authenticated user.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Get user profile",
+                "responses": {
+                    "200": {
+                        "description": "User profile data",
+                        "schema": {
+                            "$ref": "#/definitions/response.GetDataSuccess-auth_ProfileResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/response.UnauthorizedError"
+                        }
+                    }
+                }
+            }
+        },
+        "/categories": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Get a list of all registered Categories",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "categories"
+                ],
+                "summary": "Get all Categories",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "default": 1,
+                        "description": "Page number",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "default": 10,
+                        "description": "Page size",
+                        "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "default": "created_at",
+                        "description": "Sort field",
+                        "name": "sort_field",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "default": "desc",
+                        "description": "Sort order",
+                        "name": "sort_order",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Search term",
+                        "name": "search",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Preload relations",
+                        "name": "preload",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of Categories",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-array_categories_CategoryResponseDTO"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-any"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Create a new Category with the provided details",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "categories"
+                ],
+                "summary": "Create a new Category",
+                "parameters": [
+                    {
+                        "description": "Category creation details",
+                        "name": "category",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/categories.CategoryRequestDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Category created successfully",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-categories_CategoryResponseDTO"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-any"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-any"
+                        }
+                    }
+                }
+            }
+        },
+        "/categories/{id}": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Get Category details by their unique ID",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "categories"
+                ],
+                "summary": "Get a Category by ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Category ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Category found",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-categories_CategoryResponseDTO"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid Category ID",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-any"
+                        }
+                    },
+                    "404": {
+                        "description": "Category not found",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-any"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Update Category details by their unique ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "categories"
+                ],
+                "summary": "Update an existing Category",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Category ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Category update details",
+                        "name": "category",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/categories.CategoryRequestDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Category updated successfully",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-categories_CategoryResponseDTO"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid Category ID or bad request",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-any"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-any"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Delete a Category by their unique ID",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "categories"
+                ],
+                "summary": "Delete a Category",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Category ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Category deleted successfully",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-any"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid Category ID",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-any"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-any"
+                        }
+                    }
+                }
+            }
+        },
+        "/transactions": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "transactions"
+                ],
+                "summary": "Get all transactions",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "default": 1,
+                        "description": "Page number",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "default": 10,
+                        "description": "Page size",
+                        "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "default": "created_at",
+                        "description": "Sort field",
+                        "name": "sort_field",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "default": "desc",
+                        "description": "Sort order",
+                        "name": "sort_order",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Search term",
+                        "name": "search",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Preload relations",
+                        "name": "preload",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.GetDataSuccess-array_transactions_TransactionResponseDTO"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/response.BadRequestError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/response.NotFoundError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/response.InternalServerError"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "transactions"
+                ],
+                "summary": "Create an Transaction",
+                "parameters": [
+                    {
+                        "description": "TransactionRequestDTO",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/transactions.TransactionRequestDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/response.CreateSuccess-transactions_TransactionResponseDTO"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/response.BadRequestError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/response.InternalServerError"
+                        }
+                    }
+                }
+            }
+        },
+        "/transactions/{id}": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "tags": [
+                    "transactions"
+                ],
+                "summary": "Get Transaction by ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Transaction ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.GetDataSuccess-transactions_TransactionResponseDTO"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/response.BadRequestError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/response.NotFoundError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/response.InternalServerError"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "transactions"
+                ],
+                "summary": "Update an Transaction",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Transaction ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "TransactionRequestDTO",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/transactions.TransactionRequestDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.CreateSuccess-transactions_TransactionResponseDTO"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/response.BadRequestError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/response.NotFoundError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/response.InternalServerError"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "tags": [
+                    "transactions"
+                ],
+                "summary": "Delete an Transaction",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Transaction ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Transaction deleted successfully",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-any"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/response.BadRequestError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/response.InternalServerError"
+                        }
+                    }
+                }
+            }
+        },
+        "/type-groups": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Get a list of all registered TypeGroups",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "type-groups"
+                ],
+                "summary": "Get all TypeGroups",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "default": 1,
+                        "description": "Page number",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "default": 10,
+                        "description": "Page size",
+                        "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "default": "created_at",
+                        "description": "Sort field",
+                        "name": "sort_field",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "default": "desc",
+                        "description": "Sort order",
+                        "name": "sort_order",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Search term",
+                        "name": "search",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Preload relations",
+                        "name": "preload",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of TypeGroups",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-array_types_TypeGroupResponseDTO"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-any"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Create a new TypeGroup with the provided details",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "type-groups"
+                ],
+                "summary": "Create a new TypeGroup",
+                "parameters": [
+                    {
+                        "description": "TypeGroup creation details",
+                        "name": "typeGroup",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/types.TypeGroupRequestDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "TypeGroup created successfully",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-types_TypeGroupResponseDTO"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-any"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-any"
+                        }
+                    }
+                }
+            }
+        },
+        "/type-groups/{id}": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Get TypeGroup details by their unique ID",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "type-groups"
+                ],
+                "summary": "Get a TypeGroup by ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "TypeGroup ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "TypeGroup found",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-types_TypeGroupResponseDTO"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid TypeGroup ID",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-any"
+                        }
+                    },
+                    "404": {
+                        "description": "TypeGroup not found",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-any"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Update TypeGroup details by their unique ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "type-groups"
+                ],
+                "summary": "Update an existing TypeGroup",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "TypeGroup ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "TypeGroup update details",
+                        "name": "typeGroup",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/types.TypeGroupRequestDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "TypeGroup updated successfully",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-types_TypeGroupResponseDTO"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid TypeGroup ID or bad request",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-any"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-any"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Delete a TypeGroup by their unique ID",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "type-groups"
+                ],
+                "summary": "Delete a TypeGroup",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "TypeGroup ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "TypeGroup deleted successfully",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-any"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid TypeGroup ID",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-any"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-any"
+                        }
+                    }
+                }
+            }
+        },
+        "/types": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Get a list of all registered Types",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "types"
+                ],
+                "summary": "Get all Types",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "default": 1,
+                        "description": "Page number",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "default": 10,
+                        "description": "Page size",
+                        "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "default": "created_at",
+                        "description": "Sort field",
+                        "name": "sort_field",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "default": "desc",
+                        "description": "Sort order",
+                        "name": "sort_order",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Search term",
+                        "name": "search",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Preload relations",
+                        "name": "preload",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of Types",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-array_types_TypeResponseDTO"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-any"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Create a new Type with the provided details",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "types"
+                ],
+                "summary": "Create a new Type",
+                "parameters": [
+                    {
+                        "description": "Type creation details",
+                        "name": "type",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/types.TypeRequestDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Type created successfully",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-types_TypeResponseDTO"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-any"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-any"
+                        }
+                    }
+                }
+            }
+        },
+        "/types/{id}": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Get Type details by their unique ID",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "types"
+                ],
+                "summary": "Get a Type by ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Type ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Type found",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-types_TypeResponseDTO"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid Type ID",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-any"
+                        }
+                    },
+                    "404": {
+                        "description": "Type not found",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-any"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Update Type details by their unique ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "types"
+                ],
+                "summary": "Update an existing Type",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Type ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Type update details",
+                        "name": "type",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/types.TypeRequestDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Type updated successfully",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-types_TypeResponseDTO"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid Type ID or bad request",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-any"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-any"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Delete a Type by their unique ID",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "types"
+                ],
+                "summary": "Delete a Type",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Type ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Type deleted successfully",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-any"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid Type ID",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-any"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-any"
+                        }
+                    }
+                }
+            }
+        },
+        "/users": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Get a list of all registered users",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "users"
+                ],
+                "summary": "Get all users",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "default": 1,
+                        "description": "Page number",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "default": 10,
+                        "description": "Page size",
+                        "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "default": "created_at",
+                        "description": "Sort field",
+                        "name": "sort_field",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "default": "desc",
+                        "description": "Sort order",
+                        "name": "sort_order",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Search term",
+                        "name": "search",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Preload relations",
+                        "name": "preload",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of users",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-array_users_UserResponseDTO"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-any"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Create a new user with the provided details",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "users"
+                ],
+                "summary": "Create a new user",
+                "parameters": [
+                    {
+                        "description": "User creation details",
+                        "name": "user",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/users.UserRequestDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "User created successfully",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-users_UserResponseDTO"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-any"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-any"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{id}": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Get user details by their unique ID",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "users"
+                ],
+                "summary": "Get a user by ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "User ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User found",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-users_UserResponseDTO"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid user ID",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-any"
+                        }
+                    },
+                    "404": {
+                        "description": "User not found",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-any"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Update user details by their unique ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "users"
+                ],
+                "summary": "Update an existing user",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "User ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "User update details",
+                        "name": "user",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/users.UserRequestDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User updated successfully",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-users_UserResponseDTO"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid user ID or bad request",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-any"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-any"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Delete a user by their unique ID",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "users"
+                ],
+                "summary": "Delete a user",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "User ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "User deleted successfully",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-any"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid user ID",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-any"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-any"
+                        }
+                    }
+                }
+            }
+        },
+        "/workspace-members": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Get a list of all registered WorkspaceMembers",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "workspace-members"
+                ],
+                "summary": "Get all WorkspaceMembers",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "default": 1,
+                        "description": "Page number",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "default": 10,
+                        "description": "Page size",
+                        "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "default": "created_at",
+                        "description": "Sort field",
+                        "name": "sort_field",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "default": "desc",
+                        "description": "Sort order",
+                        "name": "sort_order",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Search term",
+                        "name": "search",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Preload relations",
+                        "name": "preload",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of WorkspaceMembers",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-array_workspaces_WorkspaceMemberResponseDTO"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server. I have updated all the handler files with the new Swaggo documentation. Now, I will regenerate the Swagger documentation to apply the changes.",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-any"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Create a new WorkspaceMember with the provided details",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "workspace-members"
+                ],
+                "summary": "Create a new WorkspaceMember",
+                "parameters": [
+                    {
+                        "description": "WorkspaceMember creation details",
+                        "name": "workspaceMember",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/workspaces.WorkspaceMemberRequestDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "WorkspaceMember created successfully",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-workspaces_WorkspaceMemberResponseDTO"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-any"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-any"
+                        }
+                    }
+                }
+            }
+        },
+        "/workspace-members/{id}": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Get WorkspaceMember details by their unique ID",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "workspace-members"
+                ],
+                "summary": "Get a WorkspaceMember by ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "WorkspaceMember ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "WorkspaceMember found",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-workspaces_WorkspaceMemberResponseDTO"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid WorkspaceMember ID",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-any"
+                        }
+                    },
+                    "404": {
+                        "description": "WorkspaceMember not found",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-any"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Update WorkspaceMember details by their unique ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "workspace-members"
+                ],
+                "summary": "Update an existing WorkspaceMember",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "WorkspaceMember ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "WorkspaceMember update details",
+                        "name": "workspaceMember",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/workspaces.WorkspaceMemberRequestDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "WorkspaceMember updated successfully",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-workspaces_WorkspaceMemberResponseDTO"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid WorkspaceMember ID or bad request",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-any"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-any"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Delete a WorkspaceMember by their unique ID",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "workspace-members"
+                ],
+                "summary": "Delete a WorkspaceMember",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "WorkspaceMember ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "WorkspaceMember deleted successfully",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-any"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid WorkspaceMember ID",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-any"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-any"
+                        }
+                    }
+                }
+            }
+        },
+        "/workspaces": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Get a list of all registered Workspaces",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "workspaces"
+                ],
+                "summary": "Get all Workspaces",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "default": 1,
+                        "description": "Page number",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "default": 10,
+                        "description": "Page size",
+                        "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "default": "created_at",
+                        "description": "Sort field",
+                        "name": "sort_field",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "default": "desc",
+                        "description": "Sort order",
+                        "name": "sort_order",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Search term",
+                        "name": "search",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Preload relations",
+                        "name": "preload",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of Workspaces",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-array_workspaces_WorkspaceResponseDTO"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-any"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Create a new Workspace with the provided details",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "workspaces"
+                ],
+                "summary": "Create a new Workspace",
+                "parameters": [
+                    {
+                        "description": "Workspace creation details",
+                        "name": "workspace",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/workspaces.WorkspaceRequestDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Workspace created successfully",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-workspaces_WorkspaceResponseDTO"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-any"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-any"
+                        }
+                    }
+                }
+            }
+        },
+        "/workspaces/{id}": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Get Workspace details by their unique ID",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "workspaces"
+                ],
+                "summary": "Get a Workspace by ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Workspace ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Workspace found",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-workspaces_WorkspaceResponseDTO"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid Workspace ID",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-any"
+                        }
+                    },
+                    "404": {
+                        "description": "Workspace not found",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-any"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Update Workspace details by their unique ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "workspaces"
+                ],
+                "summary": "Update an existing Workspace",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Workspace ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Workspace update details",
+                        "name": "workspace",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/workspaces.WorkspaceRequestDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Workspace updated successfully",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-workspaces_WorkspaceResponseDTO"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid Workspace ID or bad request",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-any"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-any"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Delete a Workspace by their unique ID",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "workspaces"
+                ],
+                "summary": "Delete a Workspace",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Workspace ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Workspace deleted successfully",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-any"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid Workspace ID",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-any"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/response.GenericResponse-any"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "accounts.Account": {
+            "type": "object",
+            "properties": {
+                "balance": {
+                    "type": "number"
+                },
+                "createdAt": {
+                    "type": "string",
+                    "example": "2025-06-08T12:34:56Z"
+                },
+                "createdById": {
+                    "type": "string",
+                    "example": "123e4567-e89b-12d3-a456-426614174000"
+                },
+                "createdByUser": {
+                    "$ref": "#/definitions/common.UserRef"
+                },
+                "description": {
+                    "type": "string",
+                    "example": "Resource description"
+                },
+                "id": {
+                    "type": "string",
+                    "example": "550e8400-e29b-41d4-a716-446655440000"
+                },
+                "initialBalance": {
+                    "type": "number"
+                },
+                "name": {
+                    "type": "string",
+                    "example": "Resource Name"
+                },
+                "typeGroup": {
+                    "$ref": "#/definitions/types.TypeGroup"
+                },
+                "typeGroupId": {
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "type": "string",
+                    "example": "2025-06-08T14:56:12Z"
+                },
+                "updatedById": {
+                    "type": "string",
+                    "example": "123e4567-e89b-12d3-a456-426614174001"
+                },
+                "updatedByUser": {
+                    "$ref": "#/definitions/common.UserRef"
+                },
+                "userID": {
+                    "type": "string"
+                }
+            }
+        },
+        "accounts.AccountRequestDTO": {
+            "type": "object",
+            "properties": {
+                "balance": {
+                    "type": "number"
+                },
+                "description": {
+                    "type": "string",
+                    "example": "Resource description"
+                },
+                "initialBalance": {
+                    "type": "number"
+                },
+                "name": {
+                    "type": "string",
+                    "example": "Resource Name"
+                },
+                "typeGroupId": {
+                    "type": "string"
+                }
+            }
+        },
+        "accounts.AccountResponseDTO": {
+            "type": "object",
+            "properties": {
+                "balance": {
+                    "type": "number"
+                },
+                "createdAt": {
+                    "type": "string",
+                    "example": "2025-06-08T12:34:56Z"
+                },
+                "createdById": {
+                    "type": "string",
+                    "example": "123e4567-e89b-12d3-a456-426614174000"
+                },
+                "createdByUser": {
+                    "$ref": "#/definitions/common.UserRef"
+                },
+                "description": {
+                    "type": "string",
+                    "example": "Resource description"
+                },
+                "id": {
+                    "type": "string",
+                    "example": "550e8400-e29b-41d4-a716-446655440000"
+                },
+                "initialBalance": {
+                    "type": "number"
+                },
+                "name": {
+                    "type": "string",
+                    "example": "Resource Name"
+                },
+                "tenantId": {
+                    "type": "string",
+                    "example": "550e8400-e29b-41d4-a716-446655440000"
+                },
+                "typeGroupId": {
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "type": "string",
+                    "example": "2025-06-08T14:56:12Z"
+                },
+                "updatedById": {
+                    "type": "string",
+                    "example": "123e4567-e89b-12d3-a456-426614174001"
+                },
+                "updatedByUser": {
+                    "$ref": "#/definitions/common.UserRef"
+                },
+                "userId": {
+                    "type": "string",
+                    "example": "550e8400-e29b-41d4-a716-446655440000"
+                }
+            }
+        },
+        "auth.LoginRequest": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string",
+                    "example": "admin@example.com"
+                },
+                "password": {
+                    "type": "string",
+                    "example": "admin"
+                }
+            }
+        },
+        "auth.LoginResponse": {
+            "type": "object",
+            "properties": {
+                "accessToken": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "refreshToken": {
+                    "type": "string"
+                }
+            }
+        },
+        "auth.MessageResponse": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string",
+                    "example": "Operation successful"
+                }
+            }
+        },
+        "auth.ProfileResponse": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string",
+                    "example": "Welcome"
+                },
+                "userId": {
+                    "type": "string",
+                    "example": "550e8400-e29b-41d4-a716-446655440000"
+                }
+            }
+        },
+        "categories.Category": {
+            "type": "object",
+            "properties": {
+                "children": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/categories.Category"
+                    }
+                },
+                "createdAt": {
+                    "type": "string",
+                    "example": "2025-06-08T12:34:56Z"
+                },
+                "createdById": {
+                    "type": "string",
+                    "example": "123e4567-e89b-12d3-a456-426614174000"
+                },
+                "createdByUser": {
+                    "$ref": "#/definitions/common.UserRef"
+                },
+                "description": {
+                    "type": "string",
+                    "example": "Resource description"
+                },
+                "id": {
+                    "type": "string",
+                    "example": "550e8400-e29b-41d4-a716-446655440000"
+                },
+                "name": {
+                    "type": "string",
+                    "example": "Resource Name"
+                },
+                "parent": {
+                    "description": "self-referencing",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/categories.Category"
+                        }
+                    ]
+                },
+                "parentId": {
+                    "description": "nullable",
+                    "type": "string"
+                },
+                "type": {
+                    "$ref": "#/definitions/src_modules_types.Type"
+                },
+                "typeId": {
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "type": "string",
+                    "example": "2025-06-08T14:56:12Z"
+                },
+                "updatedById": {
+                    "type": "string",
+                    "example": "123e4567-e89b-12d3-a456-426614174001"
+                },
+                "updatedByUser": {
+                    "$ref": "#/definitions/common.UserRef"
+                }
+            }
+        },
+        "categories.CategoryRequestDTO": {
+            "type": "object",
+            "properties": {
+                "description": {
+                    "type": "string",
+                    "example": "Resource description"
+                },
+                "name": {
+                    "type": "string",
+                    "example": "Resource Name"
+                },
+                "parentId": {
+                    "description": "nullable",
+                    "type": "string"
+                },
+                "typeId": {
+                    "type": "string"
+                }
+            }
+        },
+        "categories.CategoryResponseDTO": {
+            "type": "object",
+            "properties": {
+                "children": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/categories.Category"
+                    }
+                },
+                "createdAt": {
+                    "type": "string",
+                    "example": "2025-06-08T12:34:56Z"
+                },
+                "createdById": {
+                    "type": "string",
+                    "example": "123e4567-e89b-12d3-a456-426614174000"
+                },
+                "createdByUser": {
+                    "$ref": "#/definitions/common.UserRef"
+                },
+                "description": {
+                    "type": "string",
+                    "example": "Resource description"
+                },
+                "id": {
+                    "type": "string",
+                    "example": "550e8400-e29b-41d4-a716-446655440000"
+                },
+                "name": {
+                    "type": "string",
+                    "example": "Resource Name"
+                },
+                "parentId": {
+                    "description": "nullable",
+                    "type": "string"
+                },
+                "tenantId": {
+                    "type": "string",
+                    "example": "550e8400-e29b-41d4-a716-446655440000"
+                },
+                "typeId": {
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "type": "string",
+                    "example": "2025-06-08T14:56:12Z"
+                },
+                "updatedById": {
+                    "type": "string",
+                    "example": "123e4567-e89b-12d3-a456-426614174001"
+                },
+                "updatedByUser": {
+                    "$ref": "#/definitions/common.UserRef"
+                },
+                "userId": {
+                    "type": "string",
+                    "example": "550e8400-e29b-41d4-a716-446655440000"
+                }
+            }
+        },
+        "common.UserRef": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "response.BadRequestError": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "example": 400
+                },
+                "message": {
+                    "type": "string",
+                    "example": "Bad Request"
+                }
+            }
+        },
+        "response.CreateSuccess-transactions_TransactionResponseDTO": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "example": 201
+                },
+                "data": {
+                    "$ref": "#/definitions/transactions.TransactionResponseDTO"
+                },
+                "message": {
+                    "type": "string",
+                    "example": "Resource has been created"
+                }
+            }
+        },
+        "response.GenericResponse-accounts_AccountResponseDTO": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "example": 200
+                },
+                "data": {
+                    "$ref": "#/definitions/accounts.AccountResponseDTO"
+                },
+                "message": {
+                    "type": "string",
+                    "example": "OK"
+                },
+                "paging": {
+                    "$ref": "#/definitions/response.Paging"
+                }
+            }
+        },
+        "response.GenericResponse-any": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "example": 200
+                },
+                "data": {},
+                "message": {
+                    "type": "string",
+                    "example": "OK"
+                },
+                "paging": {
+                    "$ref": "#/definitions/response.Paging"
+                }
+            }
+        },
+        "response.GenericResponse-array_accounts_AccountResponseDTO": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "example": 200
+                },
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/accounts.AccountResponseDTO"
+                    }
+                },
+                "message": {
+                    "type": "string",
+                    "example": "OK"
+                },
+                "paging": {
+                    "$ref": "#/definitions/response.Paging"
+                }
+            }
+        },
+        "response.GenericResponse-array_categories_CategoryResponseDTO": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "example": 200
+                },
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/categories.CategoryResponseDTO"
+                    }
+                },
+                "message": {
+                    "type": "string",
+                    "example": "OK"
+                },
+                "paging": {
+                    "$ref": "#/definitions/response.Paging"
+                }
+            }
+        },
+        "response.GenericResponse-array_types_TypeGroupResponseDTO": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "example": 200
+                },
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/types.TypeGroupResponseDTO"
+                    }
+                },
+                "message": {
+                    "type": "string",
+                    "example": "OK"
+                },
+                "paging": {
+                    "$ref": "#/definitions/response.Paging"
+                }
+            }
+        },
+        "response.GenericResponse-array_types_TypeResponseDTO": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "example": 200
+                },
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/types.TypeResponseDTO"
+                    }
+                },
+                "message": {
+                    "type": "string",
+                    "example": "OK"
+                },
+                "paging": {
+                    "$ref": "#/definitions/response.Paging"
+                }
+            }
+        },
+        "response.GenericResponse-array_users_UserResponseDTO": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "example": 200
+                },
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/users.UserResponseDTO"
+                    }
+                },
+                "message": {
+                    "type": "string",
+                    "example": "OK"
+                },
+                "paging": {
+                    "$ref": "#/definitions/response.Paging"
+                }
+            }
+        },
+        "response.GenericResponse-array_workspaces_WorkspaceMemberResponseDTO": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "example": 200
+                },
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/workspaces.WorkspaceMemberResponseDTO"
+                    }
+                },
+                "message": {
+                    "type": "string",
+                    "example": "OK"
+                },
+                "paging": {
+                    "$ref": "#/definitions/response.Paging"
+                }
+            }
+        },
+        "response.GenericResponse-array_workspaces_WorkspaceResponseDTO": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "example": 200
+                },
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/workspaces.WorkspaceResponseDTO"
+                    }
+                },
+                "message": {
+                    "type": "string",
+                    "example": "OK"
+                },
+                "paging": {
+                    "$ref": "#/definitions/response.Paging"
+                }
+            }
+        },
+        "response.GenericResponse-categories_CategoryResponseDTO": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "example": 200
+                },
+                "data": {
+                    "$ref": "#/definitions/categories.CategoryResponseDTO"
+                },
+                "message": {
+                    "type": "string",
+                    "example": "OK"
+                },
+                "paging": {
+                    "$ref": "#/definitions/response.Paging"
+                }
+            }
+        },
+        "response.GenericResponse-types_TypeGroupResponseDTO": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "example": 200
+                },
+                "data": {
+                    "$ref": "#/definitions/types.TypeGroupResponseDTO"
+                },
+                "message": {
+                    "type": "string",
+                    "example": "OK"
+                },
+                "paging": {
+                    "$ref": "#/definitions/response.Paging"
+                }
+            }
+        },
+        "response.GenericResponse-types_TypeResponseDTO": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "example": 200
+                },
+                "data": {
+                    "$ref": "#/definitions/types.TypeResponseDTO"
+                },
+                "message": {
+                    "type": "string",
+                    "example": "OK"
+                },
+                "paging": {
+                    "$ref": "#/definitions/response.Paging"
+                }
+            }
+        },
+        "response.GenericResponse-users_UserResponseDTO": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "example": 200
+                },
+                "data": {
+                    "$ref": "#/definitions/users.UserResponseDTO"
+                },
+                "message": {
+                    "type": "string",
+                    "example": "OK"
+                },
+                "paging": {
+                    "$ref": "#/definitions/response.Paging"
+                }
+            }
+        },
+        "response.GenericResponse-workspaces_WorkspaceMemberResponseDTO": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "example": 200
+                },
+                "data": {
+                    "$ref": "#/definitions/workspaces.WorkspaceMemberResponseDTO"
+                },
+                "message": {
+                    "type": "string",
+                    "example": "OK"
+                },
+                "paging": {
+                    "$ref": "#/definitions/response.Paging"
+                }
+            }
+        },
+        "response.GenericResponse-workspaces_WorkspaceResponseDTO": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "example": 200
+                },
+                "data": {
+                    "$ref": "#/definitions/workspaces.WorkspaceResponseDTO"
+                },
+                "message": {
+                    "type": "string",
+                    "example": "OK"
+                },
+                "paging": {
+                    "$ref": "#/definitions/response.Paging"
+                }
+            }
+        },
+        "response.GetDataSuccess-array_transactions_TransactionResponseDTO": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "example": 200
+                },
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/transactions.TransactionResponseDTO"
+                    }
+                },
+                "message": {
+                    "type": "string",
+                    "example": "Get data success"
+                }
+            }
+        },
+        "response.GetDataSuccess-auth_LoginResponse": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "example": 200
+                },
+                "data": {
+                    "$ref": "#/definitions/auth.LoginResponse"
+                },
+                "message": {
+                    "type": "string",
+                    "example": "Get data success"
+                }
+            }
+        },
+        "response.GetDataSuccess-auth_MessageResponse": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "example": 200
+                },
+                "data": {
+                    "$ref": "#/definitions/auth.MessageResponse"
+                },
+                "message": {
+                    "type": "string",
+                    "example": "Get data success"
+                }
+            }
+        },
+        "response.GetDataSuccess-auth_ProfileResponse": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "example": 200
+                },
+                "data": {
+                    "$ref": "#/definitions/auth.ProfileResponse"
+                },
+                "message": {
+                    "type": "string",
+                    "example": "Get data success"
+                }
+            }
+        },
+        "response.GetDataSuccess-transactions_TransactionResponseDTO": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "example": 200
+                },
+                "data": {
+                    "$ref": "#/definitions/transactions.TransactionResponseDTO"
+                },
+                "message": {
+                    "type": "string",
+                    "example": "Get data success"
+                }
+            }
+        },
+        "response.InternalServerError": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "example": 500
+                },
+                "message": {
+                    "type": "string",
+                    "example": "Internal Server Error"
+                }
+            }
+        },
+        "response.NotFoundError": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "example": 404
+                },
+                "message": {
+                    "type": "string",
+                    "example": "Resource not found"
+                }
+            }
+        },
+        "response.Paging": {
+            "type": "object",
+            "properties": {
+                "limit": {
+                    "type": "integer"
+                },
+                "page": {
+                    "type": "integer"
+                },
+                "total": {
+                    "type": "integer"
+                }
+            }
+        },
+        "response.UnauthorizedError": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "example": 401
+                },
+                "message": {
+                    "type": "string",
+                    "example": "Unauthorized"
+                }
+            }
+        },
+        "src_modules_types.Type": {
+            "type": "object",
+            "properties": {
+                "createdAt": {
+                    "type": "string",
+                    "example": "2025-06-08T12:34:56Z"
+                },
+                "createdById": {
+                    "type": "string",
+                    "example": "123e4567-e89b-12d3-a456-426614174000"
+                },
+                "createdByUser": {
+                    "$ref": "#/definitions/common.UserRef"
+                },
+                "description": {
+                    "type": "string",
+                    "example": "Resource description"
+                },
+                "id": {
+                    "type": "string",
+                    "example": "550e8400-e29b-41d4-a716-446655440000"
+                },
+                "name": {
+                    "type": "string",
+                    "example": "Resource Name"
+                },
+                "typeGroup": {
+                    "$ref": "#/definitions/types.TypeGroup"
+                },
+                "typeGroupId": {
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "type": "string",
+                    "example": "2025-06-08T14:56:12Z"
+                },
+                "updatedById": {
+                    "type": "string",
+                    "example": "123e4567-e89b-12d3-a456-426614174001"
+                },
+                "updatedByUser": {
+                    "$ref": "#/definitions/common.UserRef"
+                }
+            }
+        },
+        "transactions.TransactionRequestDTO": {
+            "type": "object",
+            "properties": {
+                "amount": {
+                    "type": "number",
+                    "example": 1
+                },
+                "categoryId": {
+                    "type": "string",
+                    "example": "1"
+                },
+                "description": {
+                    "type": "string",
+                    "example": "Resource description"
+                },
+                "destinationId": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string",
+                    "example": "Resource Name"
+                },
+                "sourceId": {
+                    "type": "string"
+                },
+                "transaction_date": {
+                    "type": "string"
+                }
+            }
+        },
+        "transactions.TransactionResponseDTO": {
+            "type": "object",
+            "properties": {
+                "amount": {
+                    "type": "number",
+                    "example": 100000
+                },
+                "category": {
+                    "$ref": "#/definitions/categories.Category"
+                },
+                "categoryId": {
+                    "type": "string",
+                    "example": "6c0ce3eb-fd65-4a2c-aadc-de10ac852f81"
+                },
+                "createdAt": {
+                    "type": "string",
+                    "example": "2025-06-08T12:34:56Z"
+                },
+                "createdById": {
+                    "type": "string",
+                    "example": "123e4567-e89b-12d3-a456-426614174000"
+                },
+                "createdByUser": {
+                    "$ref": "#/definitions/common.UserRef"
+                },
+                "description": {
+                    "type": "string",
+                    "example": "Resource description"
+                },
+                "destination": {
+                    "$ref": "#/definitions/accounts.Account"
+                },
+                "destinationId": {
+                    "type": "string",
+                    "example": "1d65ac65-61ff-4d2b-863d-e98c2a86c9f4"
+                },
+                "id": {
+                    "type": "string",
+                    "example": "550e8400-e29b-41d4-a716-446655440000"
+                },
+                "name": {
+                    "type": "string",
+                    "example": "Resource Name"
+                },
+                "source": {
+                    "$ref": "#/definitions/accounts.Account"
+                },
+                "sourceId": {
+                    "type": "string",
+                    "example": "2e9211a7-b41e-46bf-9788-75f69b4edfa3"
+                },
+                "tenantId": {
+                    "type": "string",
+                    "example": "550e8400-e29b-41d4-a716-446655440000"
+                },
+                "transaction_date": {
+                    "type": "string",
+                    "example": "2025-06-08T12:34:56Z"
+                },
+                "updatedAt": {
+                    "type": "string",
+                    "example": "2025-06-08T14:56:12Z"
+                },
+                "updatedById": {
+                    "type": "string",
+                    "example": "123e4567-e89b-12d3-a456-426614174001"
+                },
+                "updatedByUser": {
+                    "$ref": "#/definitions/common.UserRef"
+                },
+                "userId": {
+                    "type": "string",
+                    "example": "550e8400-e29b-41d4-a716-446655440000"
+                }
+            }
+        },
+        "types.TypeGroup": {
+            "type": "object",
+            "properties": {
+                "createdAt": {
+                    "type": "string",
+                    "example": "2025-06-08T12:34:56Z"
+                },
+                "createdById": {
+                    "type": "string",
+                    "example": "123e4567-e89b-12d3-a456-426614174000"
+                },
+                "createdByUser": {
+                    "$ref": "#/definitions/common.UserRef"
+                },
+                "description": {
+                    "type": "string",
+                    "example": "Resource description"
+                },
+                "id": {
+                    "type": "string",
+                    "example": "550e8400-e29b-41d4-a716-446655440000"
+                },
+                "name": {
+                    "type": "string",
+                    "example": "Resource Name"
+                },
+                "updatedAt": {
+                    "type": "string",
+                    "example": "2025-06-08T14:56:12Z"
+                },
+                "updatedById": {
+                    "type": "string",
+                    "example": "123e4567-e89b-12d3-a456-426614174001"
+                },
+                "updatedByUser": {
+                    "$ref": "#/definitions/common.UserRef"
+                }
+            }
+        },
+        "types.TypeGroupRequestDTO": {
+            "type": "object",
+            "properties": {
+                "description": {
+                    "type": "string",
+                    "example": "Resource description"
+                },
+                "name": {
+                    "type": "string",
+                    "example": "Resource Name"
+                }
+            }
+        },
+        "types.TypeGroupResponseDTO": {
+            "type": "object",
+            "properties": {
+                "createdAt": {
+                    "type": "string",
+                    "example": "2025-06-08T12:34:56Z"
+                },
+                "createdById": {
+                    "type": "string",
+                    "example": "123e4567-e89b-12d3-a456-426614174000"
+                },
+                "createdByUser": {
+                    "$ref": "#/definitions/common.UserRef"
+                },
+                "description": {
+                    "type": "string",
+                    "example": "Resource description"
+                },
+                "id": {
+                    "type": "string",
+                    "example": "550e8400-e29b-41d4-a716-446655440000"
+                },
+                "name": {
+                    "type": "string",
+                    "example": "Resource Name"
+                },
+                "tenantId": {
+                    "type": "string",
+                    "example": "550e8400-e29b-41d4-a716-446655440000"
+                },
+                "updatedAt": {
+                    "type": "string",
+                    "example": "2025-06-08T14:56:12Z"
+                },
+                "updatedById": {
+                    "type": "string",
+                    "example": "123e4567-e89b-12d3-a456-426614174001"
+                },
+                "updatedByUser": {
+                    "$ref": "#/definitions/common.UserRef"
+                },
+                "userId": {
+                    "type": "string",
+                    "example": "550e8400-e29b-41d4-a716-446655440000"
+                }
+            }
+        },
+        "types.TypeRequestDTO": {
+            "type": "object",
+            "properties": {
+                "description": {
+                    "type": "string",
+                    "example": "Resource description"
+                },
+                "name": {
+                    "type": "string",
+                    "example": "Resource Name"
+                },
+                "typeGroupId": {
+                    "type": "string",
+                    "example": "076c9d54-203d-41d1-8ea5-b42cd7b727f2"
+                }
+            }
+        },
+        "types.TypeResponseDTO": {
+            "type": "object",
+            "properties": {
+                "createdAt": {
+                    "type": "string",
+                    "example": "2025-06-08T12:34:56Z"
+                },
+                "createdById": {
+                    "type": "string",
+                    "example": "123e4567-e89b-12d3-a456-426614174000"
+                },
+                "createdByUser": {
+                    "$ref": "#/definitions/common.UserRef"
+                },
+                "description": {
+                    "type": "string",
+                    "example": "Resource description"
+                },
+                "id": {
+                    "type": "string",
+                    "example": "550e8400-e29b-41d4-a716-446655440000"
+                },
+                "name": {
+                    "type": "string",
+                    "example": "Resource Name"
+                },
+                "tenantId": {
+                    "type": "string",
+                    "example": "550e8400-e29b-41d4-a716-446655440000"
+                },
+                "typeGroupId": {
+                    "type": "string",
+                    "example": "076c9d54-203d-41d1-8ea5-b42cd7b727f2"
+                },
+                "updatedAt": {
+                    "type": "string",
+                    "example": "2025-06-08T14:56:12Z"
+                },
+                "updatedById": {
+                    "type": "string",
+                    "example": "123e4567-e89b-12d3-a456-426614174001"
+                },
+                "updatedByUser": {
+                    "$ref": "#/definitions/common.UserRef"
+                },
+                "userId": {
+                    "type": "string",
+                    "example": "550e8400-e29b-41d4-a716-446655440000"
+                }
+            }
+        },
+        "users.User": {
+            "type": "object",
+            "properties": {
+                "createdAt": {
+                    "type": "string",
+                    "example": "2025-06-08T12:34:56Z"
+                },
+                "createdById": {
+                    "type": "string",
+                    "example": "123e4567-e89b-12d3-a456-426614174000"
+                },
+                "createdByUser": {
+                    "$ref": "#/definitions/common.UserRef"
+                },
+                "displayName": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string",
+                    "example": "550e8400-e29b-41d4-a716-446655440000"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "type": "string",
+                    "example": "2025-06-08T14:56:12Z"
+                },
+                "updatedById": {
+                    "type": "string",
+                    "example": "123e4567-e89b-12d3-a456-426614174001"
+                },
+                "updatedByUser": {
+                    "$ref": "#/definitions/common.UserRef"
+                },
+                "username": {
+                    "type": "string"
+                }
+            }
+        },
+        "users.UserRequestDTO": {
+            "type": "object",
+            "required": [
+                "email",
+                "username"
+            ],
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                }
+            }
+        },
+        "users.UserResponseDTO": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                }
+            }
+        },
+        "workspaces.Workspace": {
+            "type": "object",
+            "properties": {
+                "createdAt": {
+                    "type": "string",
+                    "example": "2025-06-08T12:34:56Z"
+                },
+                "createdById": {
+                    "type": "string",
+                    "example": "123e4567-e89b-12d3-a456-426614174000"
+                },
+                "createdByUser": {
+                    "$ref": "#/definitions/common.UserRef"
+                },
+                "description": {
+                    "type": "string",
+                    "example": "Resource description"
+                },
+                "id": {
+                    "type": "string",
+                    "example": "550e8400-e29b-41d4-a716-446655440000"
+                },
+                "members": {
+                    "description": "Many-to-many",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/users.User"
+                    }
+                },
+                "name": {
+                    "type": "string",
+                    "example": "Resource Name"
+                },
+                "owner": {
+                    "description": "Association to User",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/users.User"
+                        }
+                    ]
+                },
+                "ownerID": {
+                    "type": "string"
+                },
+                "slug": {
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "type": "string",
+                    "example": "2025-06-08T14:56:12Z"
+                },
+                "updatedById": {
+                    "type": "string",
+                    "example": "123e4567-e89b-12d3-a456-426614174001"
+                },
+                "updatedByUser": {
+                    "$ref": "#/definitions/common.UserRef"
+                }
+            }
+        },
+        "workspaces.WorkspaceMemberRequestDTO": {
+            "type": "object",
+            "properties": {
+                "description": {
+                    "type": "string",
+                    "example": "Resource description"
+                },
+                "name": {
+                    "type": "string",
+                    "example": "Resource Name"
+                },
+                "role": {
+                    "type": "string"
+                },
+                "userId": {
+                    "type": "string"
+                },
+                "workspaceId": {
+                    "type": "string"
+                }
+            }
+        },
+        "workspaces.WorkspaceMemberResponseDTO": {
+            "type": "object",
+            "properties": {
+                "createdAt": {
+                    "type": "string",
+                    "example": "2025-06-08T12:34:56Z"
+                },
+                "createdById": {
+                    "type": "string",
+                    "example": "123e4567-e89b-12d3-a456-426614174000"
+                },
+                "createdByUser": {
+                    "$ref": "#/definitions/common.UserRef"
+                },
+                "description": {
+                    "type": "string",
+                    "example": "Resource description"
+                },
+                "id": {
+                    "type": "string",
+                    "example": "550e8400-e29b-41d4-a716-446655440000"
+                },
+                "name": {
+                    "type": "string",
+                    "example": "Resource Name"
+                },
+                "role": {
+                    "type": "string"
+                },
+                "tenantId": {
+                    "type": "string",
+                    "example": "550e8400-e29b-41d4-a716-446655440000"
+                },
+                "updatedAt": {
+                    "type": "string",
+                    "example": "2025-06-08T14:56:12Z"
+                },
+                "updatedById": {
+                    "type": "string",
+                    "example": "123e4567-e89b-12d3-a456-426614174001"
+                },
+                "updatedByUser": {
+                    "$ref": "#/definitions/common.UserRef"
+                },
+                "user": {
+                    "$ref": "#/definitions/users.User"
+                },
+                "userId": {
+                    "type": "string"
+                },
+                "workspace": {
+                    "$ref": "#/definitions/workspaces.Workspace"
+                },
+                "workspaceId": {
+                    "type": "string"
+                }
+            }
+        },
+        "workspaces.WorkspaceRequestDTO": {
+            "type": "object",
+            "properties": {
+                "description": {
+                    "type": "string",
+                    "example": "Resource description"
+                },
+                "name": {
+                    "type": "string",
+                    "example": "Resource Name"
+                },
+                "ownerId": {
+                    "type": "string"
+                },
+                "slug": {
+                    "type": "string"
+                }
+            }
+        },
+        "workspaces.WorkspaceResponseDTO": {
+            "type": "object",
+            "properties": {
+                "createdAt": {
+                    "type": "string",
+                    "example": "2025-06-08T12:34:56Z"
+                },
+                "createdById": {
+                    "type": "string",
+                    "example": "123e4567-e89b-12d3-a456-426614174000"
+                },
+                "createdByUser": {
+                    "$ref": "#/definitions/common.UserRef"
+                },
+                "description": {
+                    "type": "string",
+                    "example": "Resource description"
+                },
+                "id": {
+                    "type": "string",
+                    "example": "550e8400-e29b-41d4-a716-446655440000"
+                },
+                "members": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/users.User"
+                    }
+                },
+                "name": {
+                    "type": "string",
+                    "example": "Resource Name"
+                },
+                "owner": {
+                    "$ref": "#/definitions/users.User"
+                },
+                "ownerId": {
+                    "type": "string"
+                },
+                "slug": {
+                    "type": "string"
+                },
+                "tenantId": {
+                    "type": "string",
+                    "example": "550e8400-e29b-41d4-a716-446655440000"
+                },
+                "updatedAt": {
+                    "type": "string",
+                    "example": "2025-06-08T14:56:12Z"
+                },
+                "updatedById": {
+                    "type": "string",
+                    "example": "123e4567-e89b-12d3-a456-426614174001"
+                },
+                "updatedByUser": {
+                    "$ref": "#/definitions/common.UserRef"
+                },
+                "userId": {
+                    "type": "string",
+                    "example": "550e8400-e29b-41d4-a716-446655440000"
+                }
+            }
+        }
+    },
+    "securityDefinitions": {
+        "BearerAuth": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
+        }
+    }
+}

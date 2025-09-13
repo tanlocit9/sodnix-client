@@ -1,0 +1,2465 @@
+basePath: /api
+definitions:
+  accounts.Account:
+    properties:
+      balance:
+        type: number
+      createdAt:
+        example: "2025-06-08T12:34:56Z"
+        type: string
+      createdById:
+        example: 123e4567-e89b-12d3-a456-426614174000
+        type: string
+      createdByUser:
+        $ref: '#/definitions/common.UserRef'
+      description:
+        example: Resource description
+        type: string
+      id:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+      initialBalance:
+        type: number
+      name:
+        example: Resource Name
+        type: string
+      typeGroup:
+        $ref: '#/definitions/types.TypeGroup'
+      typeGroupId:
+        type: string
+      updatedAt:
+        example: "2025-06-08T14:56:12Z"
+        type: string
+      updatedById:
+        example: 123e4567-e89b-12d3-a456-426614174001
+        type: string
+      updatedByUser:
+        $ref: '#/definitions/common.UserRef'
+      userID:
+        type: string
+    type: object
+  accounts.AccountRequestDTO:
+    properties:
+      balance:
+        type: number
+      description:
+        example: Resource description
+        type: string
+      initialBalance:
+        type: number
+      name:
+        example: Resource Name
+        type: string
+      typeGroupId:
+        type: string
+    type: object
+  accounts.AccountResponseDTO:
+    properties:
+      balance:
+        type: number
+      createdAt:
+        example: "2025-06-08T12:34:56Z"
+        type: string
+      createdById:
+        example: 123e4567-e89b-12d3-a456-426614174000
+        type: string
+      createdByUser:
+        $ref: '#/definitions/common.UserRef'
+      description:
+        example: Resource description
+        type: string
+      id:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+      initialBalance:
+        type: number
+      name:
+        example: Resource Name
+        type: string
+      tenantId:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+      typeGroupId:
+        type: string
+      updatedAt:
+        example: "2025-06-08T14:56:12Z"
+        type: string
+      updatedById:
+        example: 123e4567-e89b-12d3-a456-426614174001
+        type: string
+      updatedByUser:
+        $ref: '#/definitions/common.UserRef'
+      userId:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+    type: object
+  auth.LoginRequest:
+    properties:
+      email:
+        example: admin@example.com
+        type: string
+      password:
+        example: admin
+        type: string
+    type: object
+  auth.LoginResponse:
+    properties:
+      accessToken:
+        type: string
+      message:
+        type: string
+      refreshToken:
+        type: string
+    type: object
+  auth.MessageResponse:
+    properties:
+      message:
+        example: Operation successful
+        type: string
+    type: object
+  auth.ProfileResponse:
+    properties:
+      message:
+        example: Welcome
+        type: string
+      userId:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+    type: object
+  categories.Category:
+    properties:
+      children:
+        items:
+          $ref: '#/definitions/categories.Category'
+        type: array
+      createdAt:
+        example: "2025-06-08T12:34:56Z"
+        type: string
+      createdById:
+        example: 123e4567-e89b-12d3-a456-426614174000
+        type: string
+      createdByUser:
+        $ref: '#/definitions/common.UserRef'
+      description:
+        example: Resource description
+        type: string
+      id:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+      name:
+        example: Resource Name
+        type: string
+      parent:
+        allOf:
+        - $ref: '#/definitions/categories.Category'
+        description: self-referencing
+      parentId:
+        description: nullable
+        type: string
+      type:
+        $ref: '#/definitions/src_modules_types.Type'
+      typeId:
+        type: string
+      updatedAt:
+        example: "2025-06-08T14:56:12Z"
+        type: string
+      updatedById:
+        example: 123e4567-e89b-12d3-a456-426614174001
+        type: string
+      updatedByUser:
+        $ref: '#/definitions/common.UserRef'
+    type: object
+  categories.CategoryRequestDTO:
+    properties:
+      description:
+        example: Resource description
+        type: string
+      name:
+        example: Resource Name
+        type: string
+      parentId:
+        description: nullable
+        type: string
+      typeId:
+        type: string
+    type: object
+  categories.CategoryResponseDTO:
+    properties:
+      children:
+        items:
+          $ref: '#/definitions/categories.Category'
+        type: array
+      createdAt:
+        example: "2025-06-08T12:34:56Z"
+        type: string
+      createdById:
+        example: 123e4567-e89b-12d3-a456-426614174000
+        type: string
+      createdByUser:
+        $ref: '#/definitions/common.UserRef'
+      description:
+        example: Resource description
+        type: string
+      id:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+      name:
+        example: Resource Name
+        type: string
+      parentId:
+        description: nullable
+        type: string
+      tenantId:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+      typeId:
+        type: string
+      updatedAt:
+        example: "2025-06-08T14:56:12Z"
+        type: string
+      updatedById:
+        example: 123e4567-e89b-12d3-a456-426614174001
+        type: string
+      updatedByUser:
+        $ref: '#/definitions/common.UserRef'
+      userId:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+    type: object
+  common.UserRef:
+    properties:
+      email:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+    type: object
+  response.BadRequestError:
+    properties:
+      code:
+        example: 400
+        type: integer
+      message:
+        example: Bad Request
+        type: string
+    type: object
+  response.CreateSuccess-transactions_TransactionResponseDTO:
+    properties:
+      code:
+        example: 201
+        type: integer
+      data:
+        $ref: '#/definitions/transactions.TransactionResponseDTO'
+      message:
+        example: Resource has been created
+        type: string
+    type: object
+  response.GenericResponse-accounts_AccountResponseDTO:
+    properties:
+      code:
+        example: 200
+        type: integer
+      data:
+        $ref: '#/definitions/accounts.AccountResponseDTO'
+      message:
+        example: OK
+        type: string
+      paging:
+        $ref: '#/definitions/response.Paging'
+    type: object
+  response.GenericResponse-any:
+    properties:
+      code:
+        example: 200
+        type: integer
+      data: {}
+      message:
+        example: OK
+        type: string
+      paging:
+        $ref: '#/definitions/response.Paging'
+    type: object
+  response.GenericResponse-array_accounts_AccountResponseDTO:
+    properties:
+      code:
+        example: 200
+        type: integer
+      data:
+        items:
+          $ref: '#/definitions/accounts.AccountResponseDTO'
+        type: array
+      message:
+        example: OK
+        type: string
+      paging:
+        $ref: '#/definitions/response.Paging'
+    type: object
+  response.GenericResponse-array_categories_CategoryResponseDTO:
+    properties:
+      code:
+        example: 200
+        type: integer
+      data:
+        items:
+          $ref: '#/definitions/categories.CategoryResponseDTO'
+        type: array
+      message:
+        example: OK
+        type: string
+      paging:
+        $ref: '#/definitions/response.Paging'
+    type: object
+  response.GenericResponse-array_types_TypeGroupResponseDTO:
+    properties:
+      code:
+        example: 200
+        type: integer
+      data:
+        items:
+          $ref: '#/definitions/types.TypeGroupResponseDTO'
+        type: array
+      message:
+        example: OK
+        type: string
+      paging:
+        $ref: '#/definitions/response.Paging'
+    type: object
+  response.GenericResponse-array_types_TypeResponseDTO:
+    properties:
+      code:
+        example: 200
+        type: integer
+      data:
+        items:
+          $ref: '#/definitions/types.TypeResponseDTO'
+        type: array
+      message:
+        example: OK
+        type: string
+      paging:
+        $ref: '#/definitions/response.Paging'
+    type: object
+  response.GenericResponse-array_users_UserResponseDTO:
+    properties:
+      code:
+        example: 200
+        type: integer
+      data:
+        items:
+          $ref: '#/definitions/users.UserResponseDTO'
+        type: array
+      message:
+        example: OK
+        type: string
+      paging:
+        $ref: '#/definitions/response.Paging'
+    type: object
+  response.GenericResponse-array_workspaces_WorkspaceMemberResponseDTO:
+    properties:
+      code:
+        example: 200
+        type: integer
+      data:
+        items:
+          $ref: '#/definitions/workspaces.WorkspaceMemberResponseDTO'
+        type: array
+      message:
+        example: OK
+        type: string
+      paging:
+        $ref: '#/definitions/response.Paging'
+    type: object
+  response.GenericResponse-array_workspaces_WorkspaceResponseDTO:
+    properties:
+      code:
+        example: 200
+        type: integer
+      data:
+        items:
+          $ref: '#/definitions/workspaces.WorkspaceResponseDTO'
+        type: array
+      message:
+        example: OK
+        type: string
+      paging:
+        $ref: '#/definitions/response.Paging'
+    type: object
+  response.GenericResponse-categories_CategoryResponseDTO:
+    properties:
+      code:
+        example: 200
+        type: integer
+      data:
+        $ref: '#/definitions/categories.CategoryResponseDTO'
+      message:
+        example: OK
+        type: string
+      paging:
+        $ref: '#/definitions/response.Paging'
+    type: object
+  response.GenericResponse-types_TypeGroupResponseDTO:
+    properties:
+      code:
+        example: 200
+        type: integer
+      data:
+        $ref: '#/definitions/types.TypeGroupResponseDTO'
+      message:
+        example: OK
+        type: string
+      paging:
+        $ref: '#/definitions/response.Paging'
+    type: object
+  response.GenericResponse-types_TypeResponseDTO:
+    properties:
+      code:
+        example: 200
+        type: integer
+      data:
+        $ref: '#/definitions/types.TypeResponseDTO'
+      message:
+        example: OK
+        type: string
+      paging:
+        $ref: '#/definitions/response.Paging'
+    type: object
+  response.GenericResponse-users_UserResponseDTO:
+    properties:
+      code:
+        example: 200
+        type: integer
+      data:
+        $ref: '#/definitions/users.UserResponseDTO'
+      message:
+        example: OK
+        type: string
+      paging:
+        $ref: '#/definitions/response.Paging'
+    type: object
+  response.GenericResponse-workspaces_WorkspaceMemberResponseDTO:
+    properties:
+      code:
+        example: 200
+        type: integer
+      data:
+        $ref: '#/definitions/workspaces.WorkspaceMemberResponseDTO'
+      message:
+        example: OK
+        type: string
+      paging:
+        $ref: '#/definitions/response.Paging'
+    type: object
+  response.GenericResponse-workspaces_WorkspaceResponseDTO:
+    properties:
+      code:
+        example: 200
+        type: integer
+      data:
+        $ref: '#/definitions/workspaces.WorkspaceResponseDTO'
+      message:
+        example: OK
+        type: string
+      paging:
+        $ref: '#/definitions/response.Paging'
+    type: object
+  response.GetDataSuccess-array_transactions_TransactionResponseDTO:
+    properties:
+      code:
+        example: 200
+        type: integer
+      data:
+        items:
+          $ref: '#/definitions/transactions.TransactionResponseDTO'
+        type: array
+      message:
+        example: Get data success
+        type: string
+    type: object
+  response.GetDataSuccess-auth_LoginResponse:
+    properties:
+      code:
+        example: 200
+        type: integer
+      data:
+        $ref: '#/definitions/auth.LoginResponse'
+      message:
+        example: Get data success
+        type: string
+    type: object
+  response.GetDataSuccess-auth_MessageResponse:
+    properties:
+      code:
+        example: 200
+        type: integer
+      data:
+        $ref: '#/definitions/auth.MessageResponse'
+      message:
+        example: Get data success
+        type: string
+    type: object
+  response.GetDataSuccess-auth_ProfileResponse:
+    properties:
+      code:
+        example: 200
+        type: integer
+      data:
+        $ref: '#/definitions/auth.ProfileResponse'
+      message:
+        example: Get data success
+        type: string
+    type: object
+  response.GetDataSuccess-transactions_TransactionResponseDTO:
+    properties:
+      code:
+        example: 200
+        type: integer
+      data:
+        $ref: '#/definitions/transactions.TransactionResponseDTO'
+      message:
+        example: Get data success
+        type: string
+    type: object
+  response.InternalServerError:
+    properties:
+      code:
+        example: 500
+        type: integer
+      message:
+        example: Internal Server Error
+        type: string
+    type: object
+  response.NotFoundError:
+    properties:
+      code:
+        example: 404
+        type: integer
+      message:
+        example: Resource not found
+        type: string
+    type: object
+  response.Paging:
+    properties:
+      limit:
+        type: integer
+      page:
+        type: integer
+      total:
+        type: integer
+    type: object
+  response.UnauthorizedError:
+    properties:
+      code:
+        example: 401
+        type: integer
+      message:
+        example: Unauthorized
+        type: string
+    type: object
+  src_modules_types.Type:
+    properties:
+      createdAt:
+        example: "2025-06-08T12:34:56Z"
+        type: string
+      createdById:
+        example: 123e4567-e89b-12d3-a456-426614174000
+        type: string
+      createdByUser:
+        $ref: '#/definitions/common.UserRef'
+      description:
+        example: Resource description
+        type: string
+      id:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+      name:
+        example: Resource Name
+        type: string
+      typeGroup:
+        $ref: '#/definitions/types.TypeGroup'
+      typeGroupId:
+        type: string
+      updatedAt:
+        example: "2025-06-08T14:56:12Z"
+        type: string
+      updatedById:
+        example: 123e4567-e89b-12d3-a456-426614174001
+        type: string
+      updatedByUser:
+        $ref: '#/definitions/common.UserRef'
+    type: object
+  transactions.TransactionRequestDTO:
+    properties:
+      amount:
+        example: 1
+        type: number
+      categoryId:
+        example: "1"
+        type: string
+      description:
+        example: Resource description
+        type: string
+      destinationId:
+        type: string
+      name:
+        example: Resource Name
+        type: string
+      sourceId:
+        type: string
+      transaction_date:
+        type: string
+    type: object
+  transactions.TransactionResponseDTO:
+    properties:
+      amount:
+        example: 100000
+        type: number
+      category:
+        $ref: '#/definitions/categories.Category'
+      categoryId:
+        example: 6c0ce3eb-fd65-4a2c-aadc-de10ac852f81
+        type: string
+      createdAt:
+        example: "2025-06-08T12:34:56Z"
+        type: string
+      createdById:
+        example: 123e4567-e89b-12d3-a456-426614174000
+        type: string
+      createdByUser:
+        $ref: '#/definitions/common.UserRef'
+      description:
+        example: Resource description
+        type: string
+      destination:
+        $ref: '#/definitions/accounts.Account'
+      destinationId:
+        example: 1d65ac65-61ff-4d2b-863d-e98c2a86c9f4
+        type: string
+      id:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+      name:
+        example: Resource Name
+        type: string
+      source:
+        $ref: '#/definitions/accounts.Account'
+      sourceId:
+        example: 2e9211a7-b41e-46bf-9788-75f69b4edfa3
+        type: string
+      tenantId:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+      transaction_date:
+        example: "2025-06-08T12:34:56Z"
+        type: string
+      updatedAt:
+        example: "2025-06-08T14:56:12Z"
+        type: string
+      updatedById:
+        example: 123e4567-e89b-12d3-a456-426614174001
+        type: string
+      updatedByUser:
+        $ref: '#/definitions/common.UserRef'
+      userId:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+    type: object
+  types.TypeGroup:
+    properties:
+      createdAt:
+        example: "2025-06-08T12:34:56Z"
+        type: string
+      createdById:
+        example: 123e4567-e89b-12d3-a456-426614174000
+        type: string
+      createdByUser:
+        $ref: '#/definitions/common.UserRef'
+      description:
+        example: Resource description
+        type: string
+      id:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+      name:
+        example: Resource Name
+        type: string
+      updatedAt:
+        example: "2025-06-08T14:56:12Z"
+        type: string
+      updatedById:
+        example: 123e4567-e89b-12d3-a456-426614174001
+        type: string
+      updatedByUser:
+        $ref: '#/definitions/common.UserRef'
+    type: object
+  types.TypeGroupRequestDTO:
+    properties:
+      description:
+        example: Resource description
+        type: string
+      name:
+        example: Resource Name
+        type: string
+    type: object
+  types.TypeGroupResponseDTO:
+    properties:
+      createdAt:
+        example: "2025-06-08T12:34:56Z"
+        type: string
+      createdById:
+        example: 123e4567-e89b-12d3-a456-426614174000
+        type: string
+      createdByUser:
+        $ref: '#/definitions/common.UserRef'
+      description:
+        example: Resource description
+        type: string
+      id:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+      name:
+        example: Resource Name
+        type: string
+      tenantId:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+      updatedAt:
+        example: "2025-06-08T14:56:12Z"
+        type: string
+      updatedById:
+        example: 123e4567-e89b-12d3-a456-426614174001
+        type: string
+      updatedByUser:
+        $ref: '#/definitions/common.UserRef'
+      userId:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+    type: object
+  types.TypeRequestDTO:
+    properties:
+      description:
+        example: Resource description
+        type: string
+      name:
+        example: Resource Name
+        type: string
+      typeGroupId:
+        example: 076c9d54-203d-41d1-8ea5-b42cd7b727f2
+        type: string
+    type: object
+  types.TypeResponseDTO:
+    properties:
+      createdAt:
+        example: "2025-06-08T12:34:56Z"
+        type: string
+      createdById:
+        example: 123e4567-e89b-12d3-a456-426614174000
+        type: string
+      createdByUser:
+        $ref: '#/definitions/common.UserRef'
+      description:
+        example: Resource description
+        type: string
+      id:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+      name:
+        example: Resource Name
+        type: string
+      tenantId:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+      typeGroupId:
+        example: 076c9d54-203d-41d1-8ea5-b42cd7b727f2
+        type: string
+      updatedAt:
+        example: "2025-06-08T14:56:12Z"
+        type: string
+      updatedById:
+        example: 123e4567-e89b-12d3-a456-426614174001
+        type: string
+      updatedByUser:
+        $ref: '#/definitions/common.UserRef'
+      userId:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+    type: object
+  users.User:
+    properties:
+      createdAt:
+        example: "2025-06-08T12:34:56Z"
+        type: string
+      createdById:
+        example: 123e4567-e89b-12d3-a456-426614174000
+        type: string
+      createdByUser:
+        $ref: '#/definitions/common.UserRef'
+      displayName:
+        type: string
+      email:
+        type: string
+      id:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+      password:
+        type: string
+      updatedAt:
+        example: "2025-06-08T14:56:12Z"
+        type: string
+      updatedById:
+        example: 123e4567-e89b-12d3-a456-426614174001
+        type: string
+      updatedByUser:
+        $ref: '#/definitions/common.UserRef'
+      username:
+        type: string
+    type: object
+  users.UserRequestDTO:
+    properties:
+      email:
+        type: string
+      username:
+        type: string
+    required:
+    - email
+    - username
+    type: object
+  users.UserResponseDTO:
+    properties:
+      email:
+        type: string
+      id:
+        type: string
+      username:
+        type: string
+    type: object
+  workspaces.Workspace:
+    properties:
+      createdAt:
+        example: "2025-06-08T12:34:56Z"
+        type: string
+      createdById:
+        example: 123e4567-e89b-12d3-a456-426614174000
+        type: string
+      createdByUser:
+        $ref: '#/definitions/common.UserRef'
+      description:
+        example: Resource description
+        type: string
+      id:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+      members:
+        description: Many-to-many
+        items:
+          $ref: '#/definitions/users.User'
+        type: array
+      name:
+        example: Resource Name
+        type: string
+      owner:
+        allOf:
+        - $ref: '#/definitions/users.User'
+        description: Association to User
+      ownerID:
+        type: string
+      slug:
+        type: string
+      updatedAt:
+        example: "2025-06-08T14:56:12Z"
+        type: string
+      updatedById:
+        example: 123e4567-e89b-12d3-a456-426614174001
+        type: string
+      updatedByUser:
+        $ref: '#/definitions/common.UserRef'
+    type: object
+  workspaces.WorkspaceMemberRequestDTO:
+    properties:
+      description:
+        example: Resource description
+        type: string
+      name:
+        example: Resource Name
+        type: string
+      role:
+        type: string
+      userId:
+        type: string
+      workspaceId:
+        type: string
+    type: object
+  workspaces.WorkspaceMemberResponseDTO:
+    properties:
+      createdAt:
+        example: "2025-06-08T12:34:56Z"
+        type: string
+      createdById:
+        example: 123e4567-e89b-12d3-a456-426614174000
+        type: string
+      createdByUser:
+        $ref: '#/definitions/common.UserRef'
+      description:
+        example: Resource description
+        type: string
+      id:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+      name:
+        example: Resource Name
+        type: string
+      role:
+        type: string
+      tenantId:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+      updatedAt:
+        example: "2025-06-08T14:56:12Z"
+        type: string
+      updatedById:
+        example: 123e4567-e89b-12d3-a456-426614174001
+        type: string
+      updatedByUser:
+        $ref: '#/definitions/common.UserRef'
+      user:
+        $ref: '#/definitions/users.User'
+      userId:
+        type: string
+      workspace:
+        $ref: '#/definitions/workspaces.Workspace'
+      workspaceId:
+        type: string
+    type: object
+  workspaces.WorkspaceRequestDTO:
+    properties:
+      description:
+        example: Resource description
+        type: string
+      name:
+        example: Resource Name
+        type: string
+      ownerId:
+        type: string
+      slug:
+        type: string
+    type: object
+  workspaces.WorkspaceResponseDTO:
+    properties:
+      createdAt:
+        example: "2025-06-08T12:34:56Z"
+        type: string
+      createdById:
+        example: 123e4567-e89b-12d3-a456-426614174000
+        type: string
+      createdByUser:
+        $ref: '#/definitions/common.UserRef'
+      description:
+        example: Resource description
+        type: string
+      id:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+      members:
+        items:
+          $ref: '#/definitions/users.User'
+        type: array
+      name:
+        example: Resource Name
+        type: string
+      owner:
+        $ref: '#/definitions/users.User'
+      ownerId:
+        type: string
+      slug:
+        type: string
+      tenantId:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+      updatedAt:
+        example: "2025-06-08T14:56:12Z"
+        type: string
+      updatedById:
+        example: 123e4567-e89b-12d3-a456-426614174001
+        type: string
+      updatedByUser:
+        $ref: '#/definitions/common.UserRef'
+      userId:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: support@norastro.app
+    name: Norastro Dev Team
+    url: https://github.com/your-org/norastro
+  description: src API for the Norastro Expense Management App.
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+  termsOfService: http://swagger.io/terms/
+  title: Norastro API
+  version: "1.0"
+paths:
+  /accounts:
+    get:
+      description: Get a list of all registered Accounts
+      parameters:
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      - default: 10
+        description: Page size
+        in: query
+        name: limit
+        type: integer
+      - default: created_at
+        description: Sort field
+        in: query
+        name: sort_field
+        type: string
+      - default: desc
+        description: Sort order
+        in: query
+        name: sort_order
+        type: string
+      - description: Search term
+        in: query
+        name: search
+        type: string
+      - description: Preload relations
+        in: query
+        name: preload
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: List of Accounts
+          schema:
+            $ref: '#/definitions/response.GenericResponse-array_accounts_AccountResponseDTO'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/response.GenericResponse-any'
+      security:
+      - BearerAuth: []
+      summary: Get all Accounts
+      tags:
+      - accounts
+    post:
+      consumes:
+      - application/json
+      description: Create a new Account with the provided details
+      parameters:
+      - description: Account creation details
+        in: body
+        name: account
+        required: true
+        schema:
+          $ref: '#/definitions/accounts.AccountRequestDTO'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Account created successfully
+          schema:
+            $ref: '#/definitions/response.GenericResponse-accounts_AccountResponseDTO'
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/response.GenericResponse-any'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/response.GenericResponse-any'
+      security:
+      - BearerAuth: []
+      summary: Create a new Account
+      tags:
+      - accounts
+  /accounts/{id}:
+    delete:
+      description: Delete an Account by their unique ID
+      parameters:
+      - description: Account ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: Account deleted successfully
+          schema:
+            $ref: '#/definitions/response.GenericResponse-any'
+        "400":
+          description: Invalid Account ID
+          schema:
+            $ref: '#/definitions/response.GenericResponse-any'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/response.GenericResponse-any'
+      security:
+      - BearerAuth: []
+      summary: Delete an Account
+      tags:
+      - accounts
+    get:
+      description: Get Account details by their unique ID
+      parameters:
+      - description: Account ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Account found
+          schema:
+            $ref: '#/definitions/response.GenericResponse-accounts_AccountResponseDTO'
+        "400":
+          description: Invalid Account ID
+          schema:
+            $ref: '#/definitions/response.GenericResponse-any'
+        "404":
+          description: Account not found
+          schema:
+            $ref: '#/definitions/response.GenericResponse-any'
+      security:
+      - BearerAuth: []
+      summary: Get an Account by ID
+      tags:
+      - accounts
+    put:
+      consumes:
+      - application/json
+      description: Update Account details by their unique ID
+      parameters:
+      - description: Account ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Account update details
+        in: body
+        name: account
+        required: true
+        schema:
+          $ref: '#/definitions/accounts.AccountRequestDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Account updated successfully
+          schema:
+            $ref: '#/definitions/response.GenericResponse-accounts_AccountResponseDTO'
+        "400":
+          description: Invalid Account ID or bad request
+          schema:
+            $ref: '#/definitions/response.GenericResponse-any'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/response.GenericResponse-any'
+      security:
+      - BearerAuth: []
+      summary: Update an existing Account
+      tags:
+      - accounts
+  /auth/login:
+    post:
+      consumes:
+      - application/json
+      description: Authenticates a user with email and password and returns a JWT
+        token.
+      parameters:
+      - description: Login credentials
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/auth.LoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Login successful
+          schema:
+            $ref: '#/definitions/response.GetDataSuccess-auth_LoginResponse'
+        "400":
+          description: Invalid credentials or bad request
+          schema:
+            $ref: '#/definitions/response.BadRequestError'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/response.InternalServerError'
+      summary: Authenticate user and get JWT token
+      tags:
+      - auth
+  /auth/logout:
+    post:
+      description: Clears the user session.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Logged out
+          schema:
+            $ref: '#/definitions/response.GetDataSuccess-auth_MessageResponse'
+        "400":
+          description: Invalid credentials or bad request
+          schema:
+            $ref: '#/definitions/response.BadRequestError'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/response.InternalServerError'
+      summary: Logout user
+      tags:
+      - auth
+  /auth/profile:
+    get:
+      description: Retrieves the profile information for the authenticated user.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: User profile data
+          schema:
+            $ref: '#/definitions/response.GetDataSuccess-auth_ProfileResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.UnauthorizedError'
+      security:
+      - BearerAuth: []
+      summary: Get user profile
+      tags:
+      - auth
+  /categories:
+    get:
+      description: Get a list of all registered Categories
+      parameters:
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      - default: 10
+        description: Page size
+        in: query
+        name: limit
+        type: integer
+      - default: created_at
+        description: Sort field
+        in: query
+        name: sort_field
+        type: string
+      - default: desc
+        description: Sort order
+        in: query
+        name: sort_order
+        type: string
+      - description: Search term
+        in: query
+        name: search
+        type: string
+      - description: Preload relations
+        in: query
+        name: preload
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: List of Categories
+          schema:
+            $ref: '#/definitions/response.GenericResponse-array_categories_CategoryResponseDTO'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/response.GenericResponse-any'
+      security:
+      - BearerAuth: []
+      summary: Get all Categories
+      tags:
+      - categories
+    post:
+      consumes:
+      - application/json
+      description: Create a new Category with the provided details
+      parameters:
+      - description: Category creation details
+        in: body
+        name: category
+        required: true
+        schema:
+          $ref: '#/definitions/categories.CategoryRequestDTO'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Category created successfully
+          schema:
+            $ref: '#/definitions/response.GenericResponse-categories_CategoryResponseDTO'
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/response.GenericResponse-any'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/response.GenericResponse-any'
+      security:
+      - BearerAuth: []
+      summary: Create a new Category
+      tags:
+      - categories
+  /categories/{id}:
+    delete:
+      description: Delete a Category by their unique ID
+      parameters:
+      - description: Category ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: Category deleted successfully
+          schema:
+            $ref: '#/definitions/response.GenericResponse-any'
+        "400":
+          description: Invalid Category ID
+          schema:
+            $ref: '#/definitions/response.GenericResponse-any'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/response.GenericResponse-any'
+      security:
+      - BearerAuth: []
+      summary: Delete a Category
+      tags:
+      - categories
+    get:
+      description: Get Category details by their unique ID
+      parameters:
+      - description: Category ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Category found
+          schema:
+            $ref: '#/definitions/response.GenericResponse-categories_CategoryResponseDTO'
+        "400":
+          description: Invalid Category ID
+          schema:
+            $ref: '#/definitions/response.GenericResponse-any'
+        "404":
+          description: Category not found
+          schema:
+            $ref: '#/definitions/response.GenericResponse-any'
+      security:
+      - BearerAuth: []
+      summary: Get a Category by ID
+      tags:
+      - categories
+    put:
+      consumes:
+      - application/json
+      description: Update Category details by their unique ID
+      parameters:
+      - description: Category ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Category update details
+        in: body
+        name: category
+        required: true
+        schema:
+          $ref: '#/definitions/categories.CategoryRequestDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Category updated successfully
+          schema:
+            $ref: '#/definitions/response.GenericResponse-categories_CategoryResponseDTO'
+        "400":
+          description: Invalid Category ID or bad request
+          schema:
+            $ref: '#/definitions/response.GenericResponse-any'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/response.GenericResponse-any'
+      security:
+      - BearerAuth: []
+      summary: Update an existing Category
+      tags:
+      - categories
+  /transactions:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      - default: 10
+        description: Page size
+        in: query
+        name: limit
+        type: integer
+      - default: created_at
+        description: Sort field
+        in: query
+        name: sort_field
+        type: string
+      - default: desc
+        description: Sort order
+        in: query
+        name: sort_order
+        type: string
+      - description: Search term
+        in: query
+        name: search
+        type: string
+      - description: Preload relations
+        in: query
+        name: preload
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.GetDataSuccess-array_transactions_TransactionResponseDTO'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.BadRequestError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.NotFoundError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.InternalServerError'
+      security:
+      - BearerAuth: []
+      summary: Get all transactions
+      tags:
+      - transactions
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: TransactionRequestDTO
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/transactions.TransactionRequestDTO'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/response.CreateSuccess-transactions_TransactionResponseDTO'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.BadRequestError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.InternalServerError'
+      security:
+      - BearerAuth: []
+      summary: Create an Transaction
+      tags:
+      - transactions
+  /transactions/{id}:
+    delete:
+      parameters:
+      - description: Transaction ID
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "204":
+          description: Transaction deleted successfully
+          schema:
+            $ref: '#/definitions/response.GenericResponse-any'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.BadRequestError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.InternalServerError'
+      security:
+      - BearerAuth: []
+      summary: Delete an Transaction
+      tags:
+      - transactions
+    get:
+      parameters:
+      - description: Transaction ID
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.GetDataSuccess-transactions_TransactionResponseDTO'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.BadRequestError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.NotFoundError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.InternalServerError'
+      security:
+      - BearerAuth: []
+      summary: Get Transaction by ID
+      tags:
+      - transactions
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: Transaction ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: TransactionRequestDTO
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/transactions.TransactionRequestDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.CreateSuccess-transactions_TransactionResponseDTO'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.BadRequestError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.NotFoundError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.InternalServerError'
+      security:
+      - BearerAuth: []
+      summary: Update an Transaction
+      tags:
+      - transactions
+  /type-groups:
+    get:
+      description: Get a list of all registered TypeGroups
+      parameters:
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      - default: 10
+        description: Page size
+        in: query
+        name: limit
+        type: integer
+      - default: created_at
+        description: Sort field
+        in: query
+        name: sort_field
+        type: string
+      - default: desc
+        description: Sort order
+        in: query
+        name: sort_order
+        type: string
+      - description: Search term
+        in: query
+        name: search
+        type: string
+      - description: Preload relations
+        in: query
+        name: preload
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: List of TypeGroups
+          schema:
+            $ref: '#/definitions/response.GenericResponse-array_types_TypeGroupResponseDTO'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/response.GenericResponse-any'
+      security:
+      - BearerAuth: []
+      summary: Get all TypeGroups
+      tags:
+      - type-groups
+    post:
+      consumes:
+      - application/json
+      description: Create a new TypeGroup with the provided details
+      parameters:
+      - description: TypeGroup creation details
+        in: body
+        name: typeGroup
+        required: true
+        schema:
+          $ref: '#/definitions/types.TypeGroupRequestDTO'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: TypeGroup created successfully
+          schema:
+            $ref: '#/definitions/response.GenericResponse-types_TypeGroupResponseDTO'
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/response.GenericResponse-any'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/response.GenericResponse-any'
+      security:
+      - BearerAuth: []
+      summary: Create a new TypeGroup
+      tags:
+      - type-groups
+  /type-groups/{id}:
+    delete:
+      description: Delete a TypeGroup by their unique ID
+      parameters:
+      - description: TypeGroup ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: TypeGroup deleted successfully
+          schema:
+            $ref: '#/definitions/response.GenericResponse-any'
+        "400":
+          description: Invalid TypeGroup ID
+          schema:
+            $ref: '#/definitions/response.GenericResponse-any'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/response.GenericResponse-any'
+      security:
+      - BearerAuth: []
+      summary: Delete a TypeGroup
+      tags:
+      - type-groups
+    get:
+      description: Get TypeGroup details by their unique ID
+      parameters:
+      - description: TypeGroup ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: TypeGroup found
+          schema:
+            $ref: '#/definitions/response.GenericResponse-types_TypeGroupResponseDTO'
+        "400":
+          description: Invalid TypeGroup ID
+          schema:
+            $ref: '#/definitions/response.GenericResponse-any'
+        "404":
+          description: TypeGroup not found
+          schema:
+            $ref: '#/definitions/response.GenericResponse-any'
+      security:
+      - BearerAuth: []
+      summary: Get a TypeGroup by ID
+      tags:
+      - type-groups
+    put:
+      consumes:
+      - application/json
+      description: Update TypeGroup details by their unique ID
+      parameters:
+      - description: TypeGroup ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: TypeGroup update details
+        in: body
+        name: typeGroup
+        required: true
+        schema:
+          $ref: '#/definitions/types.TypeGroupRequestDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: TypeGroup updated successfully
+          schema:
+            $ref: '#/definitions/response.GenericResponse-types_TypeGroupResponseDTO'
+        "400":
+          description: Invalid TypeGroup ID or bad request
+          schema:
+            $ref: '#/definitions/response.GenericResponse-any'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/response.GenericResponse-any'
+      security:
+      - BearerAuth: []
+      summary: Update an existing TypeGroup
+      tags:
+      - type-groups
+  /types:
+    get:
+      description: Get a list of all registered Types
+      parameters:
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      - default: 10
+        description: Page size
+        in: query
+        name: limit
+        type: integer
+      - default: created_at
+        description: Sort field
+        in: query
+        name: sort_field
+        type: string
+      - default: desc
+        description: Sort order
+        in: query
+        name: sort_order
+        type: string
+      - description: Search term
+        in: query
+        name: search
+        type: string
+      - description: Preload relations
+        in: query
+        name: preload
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: List of Types
+          schema:
+            $ref: '#/definitions/response.GenericResponse-array_types_TypeResponseDTO'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/response.GenericResponse-any'
+      security:
+      - BearerAuth: []
+      summary: Get all Types
+      tags:
+      - types
+    post:
+      consumes:
+      - application/json
+      description: Create a new Type with the provided details
+      parameters:
+      - description: Type creation details
+        in: body
+        name: type
+        required: true
+        schema:
+          $ref: '#/definitions/types.TypeRequestDTO'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Type created successfully
+          schema:
+            $ref: '#/definitions/response.GenericResponse-types_TypeResponseDTO'
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/response.GenericResponse-any'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/response.GenericResponse-any'
+      security:
+      - BearerAuth: []
+      summary: Create a new Type
+      tags:
+      - types
+  /types/{id}:
+    delete:
+      description: Delete a Type by their unique ID
+      parameters:
+      - description: Type ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: Type deleted successfully
+          schema:
+            $ref: '#/definitions/response.GenericResponse-any'
+        "400":
+          description: Invalid Type ID
+          schema:
+            $ref: '#/definitions/response.GenericResponse-any'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/response.GenericResponse-any'
+      security:
+      - BearerAuth: []
+      summary: Delete a Type
+      tags:
+      - types
+    get:
+      description: Get Type details by their unique ID
+      parameters:
+      - description: Type ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Type found
+          schema:
+            $ref: '#/definitions/response.GenericResponse-types_TypeResponseDTO'
+        "400":
+          description: Invalid Type ID
+          schema:
+            $ref: '#/definitions/response.GenericResponse-any'
+        "404":
+          description: Type not found
+          schema:
+            $ref: '#/definitions/response.GenericResponse-any'
+      security:
+      - BearerAuth: []
+      summary: Get a Type by ID
+      tags:
+      - types
+    put:
+      consumes:
+      - application/json
+      description: Update Type details by their unique ID
+      parameters:
+      - description: Type ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Type update details
+        in: body
+        name: type
+        required: true
+        schema:
+          $ref: '#/definitions/types.TypeRequestDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Type updated successfully
+          schema:
+            $ref: '#/definitions/response.GenericResponse-types_TypeResponseDTO'
+        "400":
+          description: Invalid Type ID or bad request
+          schema:
+            $ref: '#/definitions/response.GenericResponse-any'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/response.GenericResponse-any'
+      security:
+      - BearerAuth: []
+      summary: Update an existing Type
+      tags:
+      - types
+  /users:
+    get:
+      description: Get a list of all registered users
+      parameters:
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      - default: 10
+        description: Page size
+        in: query
+        name: limit
+        type: integer
+      - default: created_at
+        description: Sort field
+        in: query
+        name: sort_field
+        type: string
+      - default: desc
+        description: Sort order
+        in: query
+        name: sort_order
+        type: string
+      - description: Search term
+        in: query
+        name: search
+        type: string
+      - description: Preload relations
+        in: query
+        name: preload
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: List of users
+          schema:
+            $ref: '#/definitions/response.GenericResponse-array_users_UserResponseDTO'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/response.GenericResponse-any'
+      security:
+      - BearerAuth: []
+      summary: Get all users
+      tags:
+      - users
+    post:
+      consumes:
+      - application/json
+      description: Create a new user with the provided details
+      parameters:
+      - description: User creation details
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/users.UserRequestDTO'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: User created successfully
+          schema:
+            $ref: '#/definitions/response.GenericResponse-users_UserResponseDTO'
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/response.GenericResponse-any'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/response.GenericResponse-any'
+      summary: Create a new user
+      tags:
+      - users
+  /users/{id}:
+    delete:
+      description: Delete a user by their unique ID
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: User deleted successfully
+          schema:
+            $ref: '#/definitions/response.GenericResponse-any'
+        "400":
+          description: Invalid user ID
+          schema:
+            $ref: '#/definitions/response.GenericResponse-any'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/response.GenericResponse-any'
+      security:
+      - BearerAuth: []
+      summary: Delete a user
+      tags:
+      - users
+    get:
+      description: Get user details by their unique ID
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: User found
+          schema:
+            $ref: '#/definitions/response.GenericResponse-users_UserResponseDTO'
+        "400":
+          description: Invalid user ID
+          schema:
+            $ref: '#/definitions/response.GenericResponse-any'
+        "404":
+          description: User not found
+          schema:
+            $ref: '#/definitions/response.GenericResponse-any'
+      security:
+      - BearerAuth: []
+      summary: Get a user by ID
+      tags:
+      - users
+    put:
+      consumes:
+      - application/json
+      description: Update user details by their unique ID
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: User update details
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/users.UserRequestDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: User updated successfully
+          schema:
+            $ref: '#/definitions/response.GenericResponse-users_UserResponseDTO'
+        "400":
+          description: Invalid user ID or bad request
+          schema:
+            $ref: '#/definitions/response.GenericResponse-any'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/response.GenericResponse-any'
+      security:
+      - BearerAuth: []
+      summary: Update an existing user
+      tags:
+      - users
+  /workspace-members:
+    get:
+      description: Get a list of all registered WorkspaceMembers
+      parameters:
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      - default: 10
+        description: Page size
+        in: query
+        name: limit
+        type: integer
+      - default: created_at
+        description: Sort field
+        in: query
+        name: sort_field
+        type: string
+      - default: desc
+        description: Sort order
+        in: query
+        name: sort_order
+        type: string
+      - description: Search term
+        in: query
+        name: search
+        type: string
+      - description: Preload relations
+        in: query
+        name: preload
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: List of WorkspaceMembers
+          schema:
+            $ref: '#/definitions/response.GenericResponse-array_workspaces_WorkspaceMemberResponseDTO'
+        "500":
+          description: Internal server. I have updated all the handler files with
+            the new Swaggo documentation. Now, I will regenerate the Swagger documentation
+            to apply the changes.
+          schema:
+            $ref: '#/definitions/response.GenericResponse-any'
+      security:
+      - BearerAuth: []
+      summary: Get all WorkspaceMembers
+      tags:
+      - workspace-members
+    post:
+      consumes:
+      - application/json
+      description: Create a new WorkspaceMember with the provided details
+      parameters:
+      - description: WorkspaceMember creation details
+        in: body
+        name: workspaceMember
+        required: true
+        schema:
+          $ref: '#/definitions/workspaces.WorkspaceMemberRequestDTO'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: WorkspaceMember created successfully
+          schema:
+            $ref: '#/definitions/response.GenericResponse-workspaces_WorkspaceMemberResponseDTO'
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/response.GenericResponse-any'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/response.GenericResponse-any'
+      security:
+      - BearerAuth: []
+      summary: Create a new WorkspaceMember
+      tags:
+      - workspace-members
+  /workspace-members/{id}:
+    delete:
+      description: Delete a WorkspaceMember by their unique ID
+      parameters:
+      - description: WorkspaceMember ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: WorkspaceMember deleted successfully
+          schema:
+            $ref: '#/definitions/response.GenericResponse-any'
+        "400":
+          description: Invalid WorkspaceMember ID
+          schema:
+            $ref: '#/definitions/response.GenericResponse-any'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/response.GenericResponse-any'
+      security:
+      - BearerAuth: []
+      summary: Delete a WorkspaceMember
+      tags:
+      - workspace-members
+    get:
+      description: Get WorkspaceMember details by their unique ID
+      parameters:
+      - description: WorkspaceMember ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: WorkspaceMember found
+          schema:
+            $ref: '#/definitions/response.GenericResponse-workspaces_WorkspaceMemberResponseDTO'
+        "400":
+          description: Invalid WorkspaceMember ID
+          schema:
+            $ref: '#/definitions/response.GenericResponse-any'
+        "404":
+          description: WorkspaceMember not found
+          schema:
+            $ref: '#/definitions/response.GenericResponse-any'
+      security:
+      - BearerAuth: []
+      summary: Get a WorkspaceMember by ID
+      tags:
+      - workspace-members
+    put:
+      consumes:
+      - application/json
+      description: Update WorkspaceMember details by their unique ID
+      parameters:
+      - description: WorkspaceMember ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: WorkspaceMember update details
+        in: body
+        name: workspaceMember
+        required: true
+        schema:
+          $ref: '#/definitions/workspaces.WorkspaceMemberRequestDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: WorkspaceMember updated successfully
+          schema:
+            $ref: '#/definitions/response.GenericResponse-workspaces_WorkspaceMemberResponseDTO'
+        "400":
+          description: Invalid WorkspaceMember ID or bad request
+          schema:
+            $ref: '#/definitions/response.GenericResponse-any'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/response.GenericResponse-any'
+      security:
+      - BearerAuth: []
+      summary: Update an existing WorkspaceMember
+      tags:
+      - workspace-members
+  /workspaces:
+    get:
+      description: Get a list of all registered Workspaces
+      parameters:
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      - default: 10
+        description: Page size
+        in: query
+        name: limit
+        type: integer
+      - default: created_at
+        description: Sort field
+        in: query
+        name: sort_field
+        type: string
+      - default: desc
+        description: Sort order
+        in: query
+        name: sort_order
+        type: string
+      - description: Search term
+        in: query
+        name: search
+        type: string
+      - description: Preload relations
+        in: query
+        name: preload
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: List of Workspaces
+          schema:
+            $ref: '#/definitions/response.GenericResponse-array_workspaces_WorkspaceResponseDTO'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/response.GenericResponse-any'
+      security:
+      - BearerAuth: []
+      summary: Get all Workspaces
+      tags:
+      - workspaces
+    post:
+      consumes:
+      - application/json
+      description: Create a new Workspace with the provided details
+      parameters:
+      - description: Workspace creation details
+        in: body
+        name: workspace
+        required: true
+        schema:
+          $ref: '#/definitions/workspaces.WorkspaceRequestDTO'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Workspace created successfully
+          schema:
+            $ref: '#/definitions/response.GenericResponse-workspaces_WorkspaceResponseDTO'
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/response.GenericResponse-any'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/response.GenericResponse-any'
+      security:
+      - BearerAuth: []
+      summary: Create a new Workspace
+      tags:
+      - workspaces
+  /workspaces/{id}:
+    delete:
+      description: Delete a Workspace by their unique ID
+      parameters:
+      - description: Workspace ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: Workspace deleted successfully
+          schema:
+            $ref: '#/definitions/response.GenericResponse-any'
+        "400":
+          description: Invalid Workspace ID
+          schema:
+            $ref: '#/definitions/response.GenericResponse-any'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/response.GenericResponse-any'
+      security:
+      - BearerAuth: []
+      summary: Delete a Workspace
+      tags:
+      - workspaces
+    get:
+      description: Get Workspace details by their unique ID
+      parameters:
+      - description: Workspace ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Workspace found
+          schema:
+            $ref: '#/definitions/response.GenericResponse-workspaces_WorkspaceResponseDTO'
+        "400":
+          description: Invalid Workspace ID
+          schema:
+            $ref: '#/definitions/response.GenericResponse-any'
+        "404":
+          description: Workspace not found
+          schema:
+            $ref: '#/definitions/response.GenericResponse-any'
+      security:
+      - BearerAuth: []
+      summary: Get a Workspace by ID
+      tags:
+      - workspaces
+    put:
+      consumes:
+      - application/json
+      description: Update Workspace details by their unique ID
+      parameters:
+      - description: Workspace ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Workspace update details
+        in: body
+        name: workspace
+        required: true
+        schema:
+          $ref: '#/definitions/workspaces.WorkspaceRequestDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Workspace updated successfully
+          schema:
+            $ref: '#/definitions/response.GenericResponse-workspaces_WorkspaceResponseDTO'
+        "400":
+          description: Invalid Workspace ID or bad request
+          schema:
+            $ref: '#/definitions/response.GenericResponse-any'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/response.GenericResponse-any'
+      security:
+      - BearerAuth: []
+      summary: Update an existing Workspace
+      tags:
+      - workspaces
+securityDefinitions:
+  BearerAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

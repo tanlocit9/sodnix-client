@@ -1,0 +1,37 @@
+{
+  "name": "server",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/server",
+  "tags": [],
+  "targets": {
+    "install-deps": {
+      "command": "cd apps/server && go mod tidy"
+    },
+    "build": {
+      "executor": "@nx-go/nx-go:build",
+      "options": {
+        "main": "apps/server/src/cmd/app/main.go",
+        "outputPath": "dist/apps/server"
+      },
+      "dependsOn": [
+        "install-deps"
+      ]
+    },
+    "serve": {
+      "executor": "@nx-go/nx-go:serve",
+      "options": {
+        "main": "apps/server/src/cmd/app/main.go",
+        "env": {
+          "ENV_FILE": "../../../apps/server/src/config/.env"
+        }
+      }
+    },
+    "test": {
+      "executor": "@nx-go/nx-go:test"
+    },
+    "lint": {
+      "executor": "@nx-go/nx-go:lint"
+    }
+  }
+}

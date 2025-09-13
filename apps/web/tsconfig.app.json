@@ -16,17 +16,17 @@
   "exclude": [
     "out-tsc",
     "dist",
-    "src/**/*.spec.ts",
-    "src/**/*.test.ts",
-    "src/**/*.spec.tsx",
-    "src/**/*.test.tsx",
-    "src/**/*.spec.js",
-    "src/**/*.test.js",
-    "src/**/*.spec.jsx",
-    "src/**/*.test.jsx",
+    "sodnix/apps/server/src/**/*.spec.ts",
+    "sodnix/apps/server/src/**/*.test.ts",
+    "sodnix/apps/server/src/**/*.spec.tsx",
+    "sodnix/apps/server/src/**/*.test.tsx",
+    "sodnix/apps/server/src/**/*.spec.js",
+    "sodnix/apps/server/src/**/*.test.js",
+    "sodnix/apps/server/src/**/*.spec.jsx",
+    "sodnix/apps/server/src/**/*.test.jsx",
     "eslint.config.js",
     "eslint.config.cjs",
     "eslint.config.mjs"
   ],
-  "include": ["src/**/*.js", "src/**/*.jsx", "src/**/*.ts", "src/**/*.tsx"]
+  "include": ["sodnix/apps/server/src/**/*.js", "sodnix/apps/server/src/**/*.jsx", "sodnix/apps/server/src/**/*.ts", "sodnix/apps/server/src/**/*.tsx"]
 }
